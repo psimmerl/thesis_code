@@ -1,0 +1,16 @@
+# ignore everyting but python, groovy, and txt files
+#data/  event/  examples/  exclusive/  mon/  pid/  projects/  utils/
+
+#ignore 
+*pdf
+*txt
+*png
+*jpeg
+*.*~
+
+
+# ignore file types
+*.root
+*.hipo
+
+
