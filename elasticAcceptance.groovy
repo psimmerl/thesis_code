@@ -1,0 +1,114 @@
+#!/opt/coatjava/6.3.1/bin/run-groovy
+import org.jlab.io.hipo.HipoDataSource
+import org.jlab.detector.base.DetectorType
+import org.jlab.clas.pdg.PDGDatabase
+import org.jlab.clas.physics.LorentzVector
+import org.jlab.clas.physics.Vector3
+import org.jlab.groot.data.H1F
+import org.jlab.groot.data.H2F
+import org.jlab.groot.data.TDirectory
+import groovyx.gpars.GParsPool
+import java.util.concurrent.ConcurrentHashMap
+
+import org.jlab.jroot.ROOTFile
+import org.jlab.jroot.TNtuple
+
+import mon.ElasticMon
+import event.EventConverter
+import event.Event
+
+
+LorentzVector.metaClass.static.withPID = {pid,x,y,z->
+    double m = PDGDatabase.getParticleMass(pid)
+    double e = Math.sqrt(x*x+y*y+z*z+m*m)
+    return new LorentzVector(x,y,z,e)
+}
+
+LorentzVector.metaClass.plus = {
+    LorentzVector a = new LorentzVector(delegate)
+    a.add(it)
+    return a
+}
+
+LorentzVector.metaClass.minus = {
+    LorentzVector a = new LorentzVector(delegate)
+    a.sub(it)
+    return a
+}
+
+
+// 1 for SIMULATION, 0 for DATA
+def DATATYPE = 0
+def proc_method = -1
+data_prefix=null
+if( DATATYPE == 1 ){
+    data_prefix='mc'
+    proc_method = 3
+}
+else{
+    data_prefix='data'
+    proc_method = 2
+}
+
+
+def outname = args[0].split('/')[-1]
+def out = new TDirectory()
+
+
+
+GParsPool.withPool 16, {
+    args.eachParallel{fname->
+	def reader = new HipoDataSource()
+	reader.open(fname)
+	cc=0
+	while(reader.hasEvent()){
+	    if( cc % 50000 == 0 ){
+		println(' Processing ' + cc )
+	    }
+
+	    def hev = reader.getNextEvent()
+	    def has_event = hev.hasBank("REC::Event")
+	    def has_scaler = hev.hasBank("RUN::scaler")
+	    def has_config = hev.hasBank("RUN::config")
+	    def has_mc = hev.hasBank("MC::Particle")
+	    def has_rec = hev.hasBank("REC::Particle")
+
+	    if( has_rec ){
+		def rec_bank = hev.getBank("REC::Particle")
+		def lv_el_rec = LorentzzVector.withPID(11, rec_bank.getFloat("px",0), rec_bank.getFloat("py",0), rec_bank.getFloat("pz",0) )
+		//fill rec histograms here
+
+	    }
+	    if( has_mc ){
+		def mc_bank = hev.getBank("MC::Particle")
+		def lv_el_mc = LorentzzVector.withPID(11, mc_bank.getFloat("px",0), mc_bank.getFloat("py",0), mc_bank.getFloat("pz",0) )
+		//fill mc histograms here
+
+	    }
+
+
+	    	    
+	    cc+=1
+	}
+	reader.close()
+    }
+}
+
+println(">> TOTAL BEAM CHARGE " + total_beam_charge )
+convertFCtoLumi(total_fcup_ug, total_fcup_g)
+
+
+//timer.cancel()
+println('Finished Event Loop')
+
+//finally write output to a ROOT file
+/*
+def outroot = new ROOTFile(data_prefix+"_elasticXS_$outname"+"_"+field_setting+".root")
+processors.each{channel -> channel.histos.each{outroot.writeDataSet(it.value)}}
+outroot.close()
+println('Finished Writing Histogram File')
+*/
+//println('Writing TTree to ROOT File')
+//processors.each{channel -> channel.closeOutTree() }
+
+println('DONE')
