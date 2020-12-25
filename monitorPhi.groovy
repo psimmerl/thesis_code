@@ -83,7 +83,8 @@ def loadCuts(file, left_sig_range, right_sig_range){
 
 // cut base path
 
-def base_path_cut = "/w/hallb-scifs17exp/clas12/bclary/CLAS12/analysis_code_fork0/projects/exclusive_phi/epkpkm_top/"
+//def base_path_cut = "/w/hallb-scifs17exp/clas12/bclary/CLAS12/analysis_code_fork0/projects/exclusive_phi/epkpkm_top/"
+def base_path_cut = "/u/home/psimmerl/thesis_code/projects/exclusive_phi/epkpkm_top/"
 def epkpkmxe_cut = loadCuts(new File(base_path_cut+"excl_phi_me_limits_pidtype1_"+field_type+".txt"),4,4)
 def ekpkmX_cut = loadCuts(new File(base_path_cut+"excl_phi_mm2_pro_limits_pidtype1_"+field_type+".txt"),4,4)
 def epkmX_cut = loadCuts(new File(base_path_cut+"excl_phi_mm2_kp_limits_pidtype1_"+field_type+".txt"),4,4)
@@ -125,10 +126,10 @@ println(' --> mm2 km ' + epkpX_cut)
 
 
 excl_cuts_inb = [
-    epkpkmxe  : epkpkmxe_cut, //[0.08 - 0.0398*sig, 0.08 + 0.0398*sig],    
-    epkpX     : epkpX_cut,        // [0.248 - 0.059*sig, 0.248 + 0.059*sig],    
-    epkmX     : epkmX_cut,        //[0.248 - 0.055*sig, 0.248 + 0.055*sig],
-    ekpkmX    : ekpkmX_cut,      //[0.9431 - 0.0719*sig, 0.9431 + 0.0719*sig],
+    epkpkmxe  : [0.08 - 0.0398*sig, 0.08 + 0.0398*sig], //epkpkmxe_cut,   
+    epkpX     : [0.248 - 0.059*sig, 0.248 + 0.059*sig], //epkpX_cut,   
+    epkmX     : [0.248 - 0.055*sig, 0.248 + 0.055*sig], //epkmX_cut,
+    ekpkmX    : [0.9431 - 0.0719*sig, 0.9431 + 0.0719*sig], //ekpkmX_cut,
     el_p_min  : 0.5,
     pro_p_max : 3.5,
     kp_p_max  : 3.5,
@@ -1089,7 +1090,7 @@ def me_all_counter = 0
 def me_pass_counter = 0
 def me_fail_counter = 0
 
-GParsPool.withPool 16, {
+GParsPool.withPool 4, {
     args.eachParallel{fname->
 	def reader = new HipoDataSource()
 	reader.open(fname)

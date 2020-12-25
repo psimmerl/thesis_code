@@ -1,0 +1,24 @@
+JOBNAME:  bc_thesis
+OS:       general
+TRACK:    analysis
+MEMORY:   16 GB
+PROJECT:  clas12 
+CPU:      16
+COMMAND:  
+unzip thesis_code.zip
+./run-groovy monitorPhi.groovy /volatile/clas12/kenjo/bclary/phi_skim/inb/skim8_00503*.hipo
+
+OTHER_FILES:
+/u/home/psimmerl/thesis_code.zip
+
+#INPUT_DATA: /volatile/clas12/kenjo/bclary/phi_skim/inb/skim8_00503*.hipo
+
+OUTPUT_DATA: monitor_phi_skim8_005032_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
+OUTPUT_TEMPLATE: /u/home/psimmerl/thesis_code/monitor_phi_skim8_005032_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
+
+OUTPUT_DATA: phi_mass_results_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
+OUTPUT_TEMPLATE: /u/home/psimmerl/thesis_code/phi_mass_results_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
+
+#INPUT_FILES: 
+#/volatile/clas12/kenjo/eic/eicsim/root/xaamz
+#/volatile/clas12/kenjo/eic/eicsim/root/xaana
