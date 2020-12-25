@@ -2,7 +2,7 @@
 #data/  event/  examples/  exclusive/  mon/  pid/  projects/  utils/
 
 #ignore 
-*pdf
+#*pdf
 *txt
 *png
 *jpeg
@@ -10,7 +10,7 @@
 
 
 # ignore file types
-*.root
+#*.root
 *.hipo
 
 
