@@ -59,7 +59,7 @@ def beam = LorentzVector.withPID(11,0,0,10.604)
 def target = LorentzVector.withPID(2212,0,0,0)
 def sig = 5.0
 
-def field_type = "inb"
+def field_type = "outb"
 def gen_asy = -0.12//-0.07282
 
 
@@ -83,8 +83,8 @@ def loadCuts(file, left_sig_range, right_sig_range){
 
 // cut base path
 
-//def base_path_cut = "/w/hallb-scifs17exp/clas12/bclary/CLAS12/analysis_code_fork0/projects/exclusive_phi/epkpkm_top/"
-def base_path_cut = "/u/home/psimmerl/thesis_code/projects/exclusive_phi/epkpkm_top/"
+def base_path_cut = "/w/hallb-scifs17exp/clas12/bclary/CLAS12/analysis_code_fork0/projects/exclusive_phi/epkpkm_top/"
+//def base_path_cut = "/u/home/psimmerl/thesis_code/projects/exclusive_phi/epkpkm_top/"
 def epkpkmxe_cut = loadCuts(new File(base_path_cut+"excl_phi_me_limits_pidtype1_"+field_type+".txt"),4,4)
 def ekpkmX_cut = loadCuts(new File(base_path_cut+"excl_phi_mm2_pro_limits_pidtype1_"+field_type+".txt"),4,4)
 def epkmX_cut = loadCuts(new File(base_path_cut+"excl_phi_mm2_kp_limits_pidtype1_"+field_type+".txt"),4,4)
@@ -1024,7 +1024,8 @@ if( write_to_file ){
 
 
 def topology = 'epkpkm'
-def field_setting = 'inbending'
+//def field_setting = 'inbending'
+def field_setting = 'outbending'
 // cut lvl meanings: 0 loose, 1 med, 2 tight
 el_cut_strictness_lvl=["ecal_cut_lvl":1,
 		       "nphe_cut_lvl":1,
@@ -1090,7 +1091,7 @@ def me_all_counter = 0
 def me_pass_counter = 0
 def me_fail_counter = 0
 
-GParsPool.withPool 4, {
+GParsPool.withPool 8, {
     args.eachParallel{fname->
 	def reader = new HipoDataSource()
 	reader.open(fname)

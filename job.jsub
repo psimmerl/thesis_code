@@ -1,0 +1,34 @@
+JOBNAME:  bc_thesis
+OS:       general
+TRACK:    analysis
+MEMORY:   8 GB
+PROJECT:  clas12 
+CPU:      8
+COMMAND:  
+unzip thesis_code.zip
+cd thesis_code
+./run-groovy monitorPhi.groovy /volatile/clas12/kenjo/bclary/phi_skim/inb/skim8_*.hipo
+#./run-groovy monitorPhi.groovy /volatile/clas12/kenjo/bclary/phi_skim/outb/*.hipo
+
+OTHER_FILES:
+/u/home/psimmerl/thesis_code.zip
+
+#INPUT_DATA: /volatile/clas12/kenjo/bclary/phi_skim/inb/skim8_*.hipo
+
+#INBENDING
+OUTPUT_DATA: thesis_code/monitor_phi_skim8_005032_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
+OUTPUT_TEMPLATE: /u/home/psimmerl/thesis_code/monitor_phi_skim8_005032_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
+
+OUTPUT_DATA: thesis_code/phi_mass_results_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
+OUTPUT_TEMPLATE: /u/home/psimmerl/thesis_code/phi_mass_results_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
+
+#OUTBENDING
+OUTPUT_DATA: thesis_code/monitor_phi_epKpKm_RGA_OUT_pidtype1_cutvar1_rmvres12-outb_16core_incl.root
+OUTPUT_TEMPLATE: /u/home/psimmerl/thesis_code/monitor_phi_epKpKm_RGA_OUT_pidtype1_cutvar1_rmvres12-outb_16core_incl.root
+
+OUTPUT_DATA: thesis_code/phi_mass_results_pidtype1_cutvar1_rmvres12-outb_16core_incl.root
+OUTPUT_TEMPLATE: /u/home/psimmerl/thesis_code/phi_mass_results_pidtype1_cutvar1_rmvres12-oub_16core_incl.root
+
+#INPUT_FILES: 
+#/volatile/clas12/kenjo/eic/eicsim/root/xaamz
+#/volatile/clas12/kenjo/eic/eicsim/root/xaana
