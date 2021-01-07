@@ -464,6 +464,17 @@ if __name__ == '__main__':
     rootfile = TFile(input_rootfile)
     histos = load_histos(rootfile)
 
+    #field_setting = 'inb'
+    field_setting=""
+    if 'inbNout' in output_pdfname:
+        field_setting="inbNoutb"
+    elif 'inb' in output_pdfname:
+        field_setting="inb"
+    elif 'outb' in output_pdfname:
+        field_setting="outb"
+    else:
+        field_setting=""
+
     # uncomment to view all histograms in file
     #for k,v in histos.items():
     #    print(k, v)
@@ -480,7 +491,6 @@ if __name__ == '__main__':
     lab.SetTextColor(1)
     
     chi2_lines = [-6, -5, -4, -3, -2, -1, 1 , 2, 3, 4, 5, 6]
-    field_setting = 'inb'
     
 
     can.Print('{}['.format(output_pdfname))

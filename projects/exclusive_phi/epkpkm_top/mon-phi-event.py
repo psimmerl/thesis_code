@@ -765,6 +765,17 @@ if __name__ == '__main__':
     rootfile = TFile(input_rootfile)
     histos = load_histos(rootfile)
 
+    field_setting = 'inbNoutb'
+    field_setting=""
+    if 'inbNout' in output_pdfname:
+        field_setting="inbNoutb"
+    elif 'inb' in output_pdfname:
+        field_setting="inb"
+    elif 'outb' in output_pdfname:
+        field_setting="outb"
+    else:
+        field_setting=""
+
     # uncomment to view all histograms in file
     #for k,v in histos.items():
     #    print(k, v)
@@ -784,7 +795,6 @@ if __name__ == '__main__':
 
     can.Print('{}['.format(output_pdfname))
     
-    field_setting = 'inbNoutb'
     mass_bins = readInBinningInfo('/w/hallb-scifs17exp/clas12/bclary/CLAS12/analysis_code_fork0/projects/phiasy/bin_mass_rangesVar11_'+field_setting+'.txt')
     mass_low  = mass_bins[1]
     mass_high = mass_bins[2]

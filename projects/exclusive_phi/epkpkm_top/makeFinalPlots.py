@@ -1,3 +1,4 @@
+import argparse
 from ROOT import TFile, TH1F, TH2F, TF1, TLine, TLatex, TLegend, TBox
 from ROOT import TCanvas, gStyle, gPad
 from ROOT import kRed, kBlack, kBlue, kMagenta, kGreen
@@ -9,6 +10,24 @@ from array import array
 #exclusivity_cut_results = (np.absolute(epkpkmX.E())<0.6, epkpXmm2 < 0.6, ekpkmXmm2 < 1.2, epkmXmm2 < 0.6)
 #pass cuts designated with pass_c012
 
+ap = argparse.ArgumentParser()#Paul addition
+ap.add_argument(
+    '-i',
+    '--input_file',
+    required=True
+)
+ap.add_argument(
+    '-o',
+    '--output_prefix',
+    required=True
+)
+args = ap.parse_args()
+
+input_rootfile = args.input_file 
+out_name = args.output_prefix 
+ff = TFile(input_rootfile)#sys.argv[1])
+#out_name='pidtype1_inb_V2'
+
 gStyle.SetOptStat(0000)
 lab = TLatex()
 lab.SetNDC()
@@ -17,13 +36,10 @@ lab.SetTextSize(0.05)
 lab.SetTextColor(1)
 
 hhs = {}
-ff = TFile(sys.argv[1])
 for kk in ff.GetListOfKeys():
     obj = kk.ReadObj()
     
     hhs[obj.GetName()] = obj
-
-out_name='pidtype1_inb_V2'
 
 c3a=TCanvas('c3a','c3a',1000,1000)
 c3a.Divide(2,2)

@@ -657,6 +657,17 @@ if __name__ == '__main__':
     args = ap.parse_args()
 
     output_pdfname = args.output_prefix + '.pdf'
+
+    field_setting = 'inbNoutb'
+    if 'inbNout' in output_pdfname:
+        field_setting="inbNoutb"
+    elif 'inb' in output_pdfname:
+        field_setting="inb"
+    elif 'outb' in output_pdfname:
+        field_setting="outb"
+    else:
+        field_setting=""
+
     setup_global_options() 
 
     can = TCanvas('can', 'can', 1000, 600)
@@ -674,7 +685,6 @@ if __name__ == '__main__':
     can.Update()
 
     # start looking at total integrated asy
-    field_setting='inbNoutb'
     binvar='Var11'
     #asy_vs_imkpkm_pidtype1_additionalcuts_rmvres12_binVar11_inbNoutb.txt
     asy_per_mass = open('asy_vs_imkpkm_pidtype4a_additionalcuts_rmvres12_bin'+binvar+'_'+field_setting+'V2.txt','r')

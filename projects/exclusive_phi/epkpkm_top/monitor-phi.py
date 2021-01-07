@@ -298,9 +298,25 @@ def plot_page_overlap(canvas, histos, histo_titles, label, save_name,
 # in each theta and phi bin
 
 # load data and file
-datatype = sys.argv[2]
+ap = argparse.ArgumentParser()#Paul addition
+ap.add_argument(
+    '-i',
+    '--input_file',
+    required=True
+)
+ap.add_argument(
+    '-o',
+    '--output_prefix',
+    required=True
+)
+args = ap.parse_args()
+
+input_rootfile = args.input_file 
+datatype = args.output_prefix 
+ff = TFile(input_rootfile)#sys.argv[1])
+#datatype = sys.argv[2]
+
 hhs={}
-ff = TFile(sys.argv[1])
 for kk in ff.GetListOfKeys():
     obj = kk.ReadObj()
     hhs[obj.GetName()] = obj

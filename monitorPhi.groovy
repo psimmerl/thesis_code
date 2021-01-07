@@ -59,7 +59,11 @@ def beam = LorentzVector.withPID(11,0,0,10.604)
 def target = LorentzVector.withPID(2212,0,0,0)
 def sig = 5.0
 
-def field_type = "outb"
+
+
+def field_type = args[0]//"outb"
+args.remove(0)
+
 def gen_asy = -0.12//-0.07282
 
 

@@ -2,6 +2,9 @@ from ROOT import TCanvas, TPad, TFormula, TF1, TPaveLabel, TH1F, TFile, TMath, T
 from ROOT import TLegend, TLatex, TLine
 from ROOT import TGraphErrors
 from ROOT import gROOT, gBenchmark, gStyle, gPad, kBlack, kRed, kBlue, kMagenta, kPink
+
+import argparse
+
 from array import array
 import numpy as np
 import math
@@ -10,9 +13,22 @@ import sys
 
 gStyle.SetOptStat(0000)
 
-fin = TFile(sys.argv[1])
+ap = argparse.ArgumentParser()
+ap.add_argument(
+    '-i',
+    '--input_file',
+    required=True
+)
+ap.add_argument(
+    '-o',
+    '--output_prefix',
+    required=True
+)
+args = ap.parse_args()
 
-out_name = sys.argv[2]
+input_rootfile = args.input_file 
+out_name = args.output_prefix#sys.argv[2]
+fin = TFile(input_rootfile)#sys.argv[1])
 
 field_setting=""
 if 'inbNout' in out_name:
@@ -85,8 +101,8 @@ temp_min = phif.GetParameter(1) - 3.5*phif.GetParameter(2)
 temp_max = phif.GetParameter(1) + 3.5*phif.GetParameter(2)
 print(' min range {} max range {}'.format(temp_min,temp_max))
 
-phi_n_signal = fsignal.Integral(temp_min, temp_max)/bin_width;
-phi_n_bck = fbck.Integral(temp_min, temp_max)/bin_width;
+phi_n_signal = fsignal.Integral(temp_min, temp_max)/bin_width
+phi_n_bck = fbck.Integral(temp_min, temp_max)/bin_width
 
 print(' integral of sig {}'.format(fsignal.Integral(temp_min, temp_max)))
 print(' integral of bck {}'.format(fbck.Integral(temp_min, temp_max)))
@@ -115,8 +131,8 @@ min_fsignal.SetParameter(0,phif.GetParameter(0)-phif.GetParError(0)) # N to chan
 min_fsignal.SetParameter(2,phif.GetParameter(2)-phif.GetParError(2)) # S to change
 
 ## get integral of max and min functions
-max_phi_n_signal = max_fsignal.Integral(temp_min, temp_max)/bin_width;
-min_phi_n_signal = min_fsignal.Integral(temp_min, temp_max)/bin_width;
+max_phi_n_signal = max_fsignal.Integral(temp_min, temp_max)/bin_width
+min_phi_n_signal = min_fsignal.Integral(temp_min, temp_max)/bin_width
 
 print(' ---- > getting errors for signal here ' )
 print(' max_phi_n_signal {}'.format(max_phi_n_signal))

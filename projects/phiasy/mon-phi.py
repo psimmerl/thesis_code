@@ -442,6 +442,16 @@ if __name__ == '__main__':
     rootfile = TFile(input_rootfile)
     histos = load_histos(rootfile)
 
+    field_setting = 'inbNoutb'
+    if 'inbNout' in output_pdfname:
+        field_setting="inbNoutb"
+    elif 'inb' in output_pdfname:
+        field_setting="inb"
+    elif 'outb' in output_pdfname:
+        field_setting="outb"
+    else:
+        field_setting=""
+
     # uncomment to view all histograms in file
     #for k,v in histos.items():
     #    print(k, v)
@@ -458,7 +468,6 @@ if __name__ == '__main__':
     lab.SetTextColor(1)
 
 
-    field_setting = 'inbNoutb'
     bp = 0
     max_xaxis = 0
     binvar='binVar11'

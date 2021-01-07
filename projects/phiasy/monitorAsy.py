@@ -4,6 +4,8 @@ from ROOT import gROOT, gBenchmark, gStyle, gPad
 from ROOT import TLorentzVector, TVector3
 from collections import OrderedDict
 
+import argparse
+
 import numpy as np
 import os, sys
 
@@ -95,8 +97,27 @@ builders={
 
 
 # new mass bins, larger sizing
-field_setting='inbNoutb'
+ap = argparse.ArgumentParser()
+ap.add_argument(
+    '--input_file',
+    required=True
+    '-i',
+)
+ap.add_argument(
+    '-o',
+    '--output_prefix',
+    required=True
+)
+args = ap.parse_args()
+
+input_rootfile = args.input_file 
+field_setting = args.output_prefix
+ff = TFile(input_rootfile)#sys.argv[1])
+
+#field_setting = 'inbNoutb'
 bin_var = '11'
+
+
 mass_bins = readInBinningInfo('bin_mass_rangesVar'+bin_var+'_'+field_setting+'.txt')
 
 overlap_mass_bins = readInOverlapBinningInfo('bin_mass_slidingVar4_'+field_setting+'.txt')
@@ -130,7 +151,6 @@ equal_q2_xb_bins=[]
 # list for masses
 im_kpkm_bins = []
 
-ff = TFile(sys.argv[1])
 ccounter=0
 
 min_mass_kpkm = mass_bins[1]
