@@ -2,9 +2,9 @@
 #data/  event/  examples/  exclusive/  mon/  pid/  projects/  utils/
 
 #ignore 
-*pdf
+#*pdf
 *txt
-*png
+#*png
 *jpeg
 *.*~
 

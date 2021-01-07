@@ -36,59 +36,58 @@
 #check field type
 #./run-groovy monitorPhi.groovy /volatile/clas12/kenjo/bclary/phi_skim/outb/epKpKm_RGA_OUT.hipo
 
-
-
-
 #
-inb=monitor_phi_skim8_005032_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
-outb=monitor_phi_epKpKm_RGA_OUT_pidtype1_cutvar1_rmvres12-outb_16core_incl.root
+inb=$PWD/monitor_phi_skim8_005032_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
+outb=$PWD/monitor_phi_epKpKm_RGA_OUT_pidtype1_cutvar1_rmvres12-outb_16core_incl.root
 
-#phi_mass_results_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
-#phi_mass_results_pidtype1_cutvar1_rmvres12-outb_16core_incl.root
-#monAsyinb=
-#monAsyoutb=
-monAsy=mon_asy_pidtype4a_rmvres12_binningV11_cutvar0_-inbNoutb_v2.root
+inbphi=$PWD/phi_mass_results_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
+outbphi=$PWD/phi_mass_results_pidtype1_cutvar1_rmvres12-outb_16core_incl.root
 
-
-python2.7 projects/compareFields/mon-compare-fields.py -iinb $inb -ioutb $outb -o mon-compare-fields
-python2.7 projects/compareFields/mon-cf-phi-event.py -iinb $inb -ioutb $outb -o mon-cf-phi-event
-python2.7 projects/compareFields/mon-cf-phi-selection.py -iinb $inb -ioutb $outb -o mon-cf-phi-selection
+#where did the v2 files coe from in mon-compare0fields
+cd projects/compareFields
+#python2.7 mon-compare-fields.py -iinb $inb -ioutb $outb -o mon-compare-fields
+#python2.7 mon-cf-phi-event.py -iinb $inb -ioutb $outb -o mon-cf-phi-event
+#python2.7 mon-cf-phi-selection.py -iinb $inb -ioutb $outb -o mon-cf-phi-selection
 
 #Need to fix for inb and outb
-python2.7 projects/exclusive_phi/epkpkm_top/makeFinalPlots.py $inb
-# python2.7 projects/exclusive_phi/epkpkm_top/makeFinalPlots.py $outb
+cd ../exclusive_phi/epkpkm_top
+#python2.7 makeFinalPlots.py $inb
+# python2.7 makeFinalPlots.py $outb
 
-
-
-python2.7 projects/exclusive_phi/epkpkm_top/monitor-phi.py $inb inbending
-python2.7 projects/exclusive_phi/epkpkm_top/monitor-phi.py $inb outbending
+#python2.7 monitor-phi.py $inb inbending
+#python2.7 monitor-phi.py $outb outbending
 
 #Note field setting is field_setting='inb' Need to change
-python2.7 projects/exclusive_phi/epkpkm_top/monitor-phi-selection.py -i $inb monitor-phi-selection-inb
-#python2.7 projects/exclusive_phi/epkpkm_top/monitor-phi-selection.py -i $inb monitor-phi-selection-outb
+python2.7 mon-phi-selection.py -i $inb -o mon-phi-selection-inb
+#python2.7 monitor-phi-selection.py -i $outb -o monitor-phi-selection-outb
 
 #Note field setting is field_setting='inbNoutb' Need to change
-python2.7 projects/exclusive_phi/epkpkm_top/monitor-phi-event.py -i $inb monitor-phi-event-inb
-# python2.7 projects/exclusive_phi/epkpkm_top/monitor-phi-event.py -i $inb monitor-phi-event-outb
+python2.7 mon-phi-event.py -i $inb -o mon-phi-event-inb
+# python2.7 monitor-phi-event.py -i $outb -o monitor-phi-event-outb
 
 #field_setting='inbNoutb' need to change?
 #inbnoutb need to fix for two
-python2.7 projects/phiasy/monitorAsy.py phi_mass_results_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
-#python2.7 projects/phiasy/monitorAsy.py phi_mass_results_pidtype1_cutvar1_rmvres12-outb_16core_incl.root
-
+#not sure where the bin_**.txt files came from
+cd ../../phiasy
+#monAsyinb=
+#monAsyoutb=
+monAsy=$PWD/mon_asy_pidtype4a_rmvres12_binningV11_cutvar0_-inbNoutb_v2.root
+python2.7 monitorAsy.py $inbphi
+#python2.7 monitorAsy.py $outbphi
 
 #field inbNoutb
-python2.7 projects/phiasy/mon-phi.py -i $monAsy -o mon-phi-inbNoutb
+python2.7 mon-phi.py -i $monAsy -o mon-phi-inbNoutb
 #inbNoutb
-python2.7 projects/phiasy/showBckAsy.py -o showBckAsy-inbNoutb
+python2.7 showBckAsy.py -o showBckAsy-inbNoutb
 #inbNoutb
-python2.7 projects/phiasy/mon-phi-method2.py -i $monAsy -o mon-phi-method2-inbNoutb
+python2.7 mon-phi-method2.py -i $monAsy -o mon-phi-method2-inbNoutb
 
+cd ../exclusive_phi/epkpkm_top
 #phiPeak_{}.png phiPeak_{}.pdf phiPeak_detailed_{}.png phiPeak_detailed_{}.pdf phiPeak_fom_{}.pdf
-python2.7 projects/exclusive_phi/epkpkm_top/phimassV2.py $monAsy inbNoutb
+python2.7 phimassV2.py $monAsy inbNoutb
 
 #
-python2.7 projects/exclusive_phi/epkpkm_top/mon-phimass.py -i $monAsy -o mon-phimass-inbNoutb
+python2.7 mon-phimass.py -i $monAsy -o mon-phimass-inbNoutb
 
 
 #monMC requires running simulation! Don't feel like setting up rn
