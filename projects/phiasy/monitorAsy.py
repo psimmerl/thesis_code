@@ -99,9 +99,9 @@ builders={
 # new mass bins, larger sizing
 ap = argparse.ArgumentParser()
 ap.add_argument(
+    '-i',
     '--input_file',
     required=True
-    '-i',
 )
 ap.add_argument(
     '-o',

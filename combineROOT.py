@@ -30,12 +30,12 @@ foutb = TFile(args.input_outb_file)
 hhs = {}
 for kk in finb.GetListOfKeys():
     obj = kk.ReadObj()
-    hinbs[obj.GetName()] = obj
+    hhs[obj.GetName()] = obj
 
 for kk in foutb.GetListOfKeys():
     obj = kk.ReadObj()
-    if obj.GetName() in hhs.keys:
-        hhs[obj.GetName()] = hhs[obj.GetName()].Add(obj)
+    if obj.GetName() in hhs.keys():
+        hhs[obj.GetName()].Add(obj)
     else:
         hhs[obj.GetName()] = obj
 

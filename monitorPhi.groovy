@@ -62,7 +62,7 @@ def sig = 5.0
 
 
 def field_type = args[0]//"outb"
-args.remove(0)
+args -= field_type
 
 def gen_asy = -0.12//-0.07282
 
