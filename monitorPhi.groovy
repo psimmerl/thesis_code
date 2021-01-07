@@ -1028,8 +1028,10 @@ if( write_to_file ){
 
 
 def topology = 'epkpkm'
-//def field_setting = 'inbending'
-def field_setting = 'outbending'
+def field_setting = 'inbending'
+if ( field_type  == 'outb' ){
+    field_setting = 'outbending'
+}
 // cut lvl meanings: 0 loose, 1 med, 2 tight
 el_cut_strictness_lvl=["ecal_cut_lvl":1,
 		       "nphe_cut_lvl":1,

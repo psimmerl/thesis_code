@@ -2,17 +2,20 @@
 
 ./run-groovy monitorPhi.groovy inb /volatile/clas12/kenjo/bclary/phi_skim/inb/*.hipo
 ./run-groovy monitorPhi.groovy outb /volatile/clas12/kenjo/bclary/phi_skim/outb/epKpKm_RGA_OUT.hipo
-./run-groovy monitorPhi.groovy inbNoutb /volatile/clas12/kenjo/bclary/phi_skim/inb/*.hipo /volatile/clas12/kenjo/bclary/phi_skim/outb/epKpKm_RGA_OUT.hipo
-
 
 #
 inb=$PWD/monitor_phi_skim8_005032_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
 outb=$PWD/monitor_phi_epKpKm_RGA_OUT_pidtype1_cutvar1_rmvres12-outb_16core_incl.root
 inbNoutb=$PWD/monitor_phi_epKpKm_RGA_OUT_pidtype1_cutvar1_rmvres12-inbNoutb_16core_incl.root
 
+python2.7 combineROOT.py -iinb $inb -ioutb $outb -o $inbNoutb
+
+
 inbphi=$PWD/phi_mass_results_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
 outbphi=$PWD/phi_mass_results_pidtype1_cutvar1_rmvres12-outb_16core_incl.root
 inbNoutbphi=$PWD/phi_mass_results_pidtype1_cutvar1_rmvres12-inbNoutb_16core_incl.root
+
+python2.7 combineROOT.py -iinb $inbphi -ioutb $outbphi -o $inbNoutbphi
 
 #where did the v2 files coe from in mon-compare-fields
 cd projects/compareFields
