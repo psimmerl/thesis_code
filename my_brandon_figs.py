@@ -96,7 +96,7 @@ im2 = MyHist(im[3]+csp[5], ffi, "(FD), "+yim2+" vs "+xim2+", Pass All Cuts", \
     xim2+" (GeV)", yim2+" (GeV)","im2D")
 
 
-ffo = "monitor_phi_epKpKm_RGA_OUT_pidtype1_cutvar1_rmvres12-inb_16core_incl.root"
+ffo = "monitor_phi_epKpKm_RGA_OUT_pidtype1_cutvar1_rmvres12-outb_16core_incl.root"
 
 h37i = MyHist(im[0]+csp[8], ffi, "(FD) inbNoutb, "+xim[1]+", Pass All,--<I.M.K^{+}K^{-}<--",\
           xim[1]+" (GeV)", ct,"imk")
