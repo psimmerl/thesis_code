@@ -1,15 +1,16 @@
 #!/bin/bash
 
-#./run-groovy monitorPhi.groovy inb /volatile/clas12/kenjo/bclary/phi_skim/inb/skim8_*.hipo
-#./run-groovy monitorPhi.groovy outb /volatile/clas12/kenjo/bclary/phi_skim/outb/epKpKm_RGA_OUT.hipo
+./run-groovy monitorPhi.groovy inb /volatile/clas12/kenjo/bclary/phi_skim/inb/skim8_*.hipo
+./run-groovy monitorPhi.groovy outb /volatile/clas12/kenjo/bclary/phi_skim/outb/epKpKm_RGA_OUT.hipo
 
 #
-#inb=$PWD/monitor_phi_skim8_005032_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
-inb=$PWD/monitor_phi_epKpKm_skim2_RGA_IN_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
+inb=$PWD/monitor_phi_skim8_005032_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
+#inb=$PWD/monitor_phi_epKpKm_skim2_RGA_IN_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
 outb=$PWD/monitor_phi_epKpKm_RGA_OUT_pidtype1_cutvar1_rmvres12-outb_16core_incl.root
 inbNoutb=$PWD/monitor_phi_pidtype1_cutvar1_rmvres12-inbNoutb_16core_incl.root
 
 #python2.7 combineROOT.py -iinb $inb -ioutb $outb -o $inbNoutb
+hadd -f $inbNoutb $inb $outb
 
 
 inbphi=$PWD/phi_mass_results_pidtype1_cutvar1_rmvres12-inb_16core_incl.root
@@ -17,7 +18,7 @@ outbphi=$PWD/phi_mass_results_pidtype1_cutvar1_rmvres12-outb_16core_incl.root
 inbNoutbphi=$PWD/phi_mass_results_pidtype1_cutvar1_rmvres12-inbNoutb_16core_incl.root
 
 #python2.7 combineROOT.py -iinb $inbphi -ioutb $outbphi -o $inbNoutbphi
-#hadd -f $inbNoutbphi $inbphi $outbphi
+hadd -f $inbNoutbphi $inbphi $outbphi
 
 
 #where did the v2 files come from in mon-compare-fields

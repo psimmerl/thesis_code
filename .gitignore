@@ -10,7 +10,7 @@
 
 
 # ignore file types
-#*.root
+*.root
 *.hipo
 
 
