@@ -130,10 +130,10 @@ println(' --> mm2 km ' + epkpX_cut)
 
 
 excl_cuts_inb = [
-    epkpkmxe  : [0.08 - 0.0398*sig, 0.08 + 0.0398*sig], //epkpkmxe_cut,   
-    epkpX     : [0.248 - 0.059*sig, 0.248 + 0.059*sig], //epkpX_cut,   
-    epkmX     : [0.248 - 0.055*sig, 0.248 + 0.055*sig], //epkmX_cut,
-    ekpkmX    : [0.9431 - 0.0719*sig, 0.9431 + 0.0719*sig], //ekpkmX_cut,
+    epkpkmxe  : epkpkmxe_cut, //[0.08 - 0.0398*sig, 0.08 + 0.0398*sig],
+    epkpX     : epkpX_cut, //[0.248 - 0.059*sig, 0.248 + 0.059*sig], 
+    epkmX     : epkmX_cut, //[0.248 - 0.055*sig, 0.248 + 0.055*sig],
+    ekpkmX    : ekpkmX_cut, //[0.9431 - 0.0719*sig, 0.9431 + 0.0719*sig], 
     el_p_min  : 0.5,
     pro_p_max : 3.5,
     kp_p_max  : 3.5,
